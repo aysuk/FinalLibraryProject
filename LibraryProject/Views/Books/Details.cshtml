@@ -1,0 +1,186 @@
+﻿@model LibraryProject.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="col-lg-10 col-lg-offset-1">
+    <div class="invoice-body">
+        <div class="pull-left">
+            <h1>@Html.DisplayFor(model => model.Name)</h1>
+            <address>
+                <strong>@Html.DisplayFor(model => model.Author)</strong><br>
+
+                <abbr title="Tarih">@Html.DisplayNameFor(model => model.PublishDate):</abbr> @Html.DisplayFor(model => model.PublishDate)
+            </address>
+        </div>
+        <!-- /pull-left -->
+        <div class="pull-right">
+            <h2>@Html.DisplayFor(model => model.Publisher)</h2>
+        </div>
+        <!-- /pull-right -->
+        <div class="clearfix"></div>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-9">
+                @*<h4>Paul Smith</h4>
+                    <address>
+                        <strong>Enterprise Corp.</strong><br>
+                        234 Great Ave, Suite 600<br>
+                        San Francisco, CA 94107<br>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                    </address>*@
+            </div>
+            <!-- /col-md-9 -->
+            <div class="col-md-3">
+                <br>
+                <div>
+                    <div class="pull-left"> Kitap No : </div>
+                    <div class="pull-right"> @Html.DisplayFor(model => model.Id) </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div>
+                    <!-- /col-md-3 -->
+                    <div class="pull-left"> @Html.DisplayNameFor(model => model.CreatedDate) : </div>
+                    <div class="pull-right"> @Model.CreatedDate.ToString("dd/MM/yyyy")  </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- /row -->
+                <br>
+                <div class="well well-small green">
+                    <div class="pull-left"> Toplam Kayıt Sayısı : </div>
+                    @if (Model.BookRecords != null && Model.BookRecords.Count > 0)
+                    {
+                        <div class="pull-right">
+                            @Model.BookRecords.Count
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="pull-right">
+                            0
+                        </div>
+                    }
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- /invoice-body -->
+        </div>
+        <!-- /col-lg-10 -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:100px" class="text-center">Kayıt No</th>
+                    <th class="text-left">Açıklama</th>
+                    <th style="width:280px" class="text-right">Kaydı Ekleyen</th>
+                    <th style="width:200px" class="text-right">Eklenme Tarihi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.BookRecords != null && Model.BookRecords.Count > 0)
+                {
+                    foreach (var item in Model.BookRecords)
+                    {
+                        <tr>
+                            <td class="text-center">@item.Id</td>
+                            <td>@item.Description</td>
+                            <td class="text-right">@item.LibraryUser.FirstName @item.LibraryUser.LastName </td>
+                            <td class="text-right">@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            <td class="text-right"><a target="_blank" href="~/uploads/@item.FileUrl"> Kaydı Dinle </a></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center"> Hiç kayıt bulunamadı. </td>
+                    </tr>
+                }
+
+                @*<tr>
+                        <td class="text-center">2</td>
+                        <td>Carry On Suitcase</td>
+                        <td class="text-right">$300.00</td>
+                        <td class="text-right">$600.00</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" rowspan="4">
+                            <h4>Terms and Conditions</h4>
+                            <p>Thank you for your business. We do expect payment within 21 days, so please process this invoice within that time. There will be a 1.5% interest charge per month on late invoices.</p>
+                        <td class="text-right"><strong>Subtotal</strong></td>
+                        <td class="text-right">$1029.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right no-border"><strong>Shipping</strong></td>
+                        <td class="text-right">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right no-border"><strong>VAT Included in Total</strong></td>
+                        <td class="text-right">$0.00</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right no-border">
+                            <div class="well well-small green"><strong>Total</strong></div>
+                        </td>
+                        <td class="text-right"><strong>$1029.00</strong></td>
+                    </tr>*@
+            </tbody>
+        </table>
+        <br>
+        <br>
+    </div>
+</div>
+
+
+
+@*<h1>Details</h1>
+
+    <div>
+        <h4>Book</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Author)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Author)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PublishDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PublishDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Publisher)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Publisher)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ImageUrl)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@

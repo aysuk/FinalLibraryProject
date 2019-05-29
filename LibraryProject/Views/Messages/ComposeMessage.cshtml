@@ -1,0 +1,46 @@
+﻿@model Message
+@{
+    ViewData["Title"] = "ComposeMessage";
+    Layout = "~/Views/Shared/_LayoutMessages.cshtml";
+}
+
+<div class="col-sm-9">
+    <section class="panel">
+        <header class="panel-heading wht-bg">
+            <h4 class="gen-case">
+                Yeni Mesaj
+            </h4>
+        </header>
+        <div class="panel-body">
+            <div class="compose-mail">
+                <form role="form-horizontal" method="post" action="ComposeMessage" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" style="margin-bottom: 5px;">
+                        <label for="ReceiverId" class="control-label">Kime:</label>
+                        @*@Html.DropDownList("ReceiverId", ViewBag.ReceiverId, "Seçiniz", new { @class = "form-control" })*@
+                        <select asp-for="ReceiverId" class="form-control" style="display:inline-block;width:90%;padding: 6px 7px;" asp-items="ViewBag.ReceiverId">
+                            <option disabled selected> Kişi Seçiniz </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Title" class="">Başlık:</label>
+                        <input asp-for="Title" class="form-control" style="width:90%;border: 1px solid #ccc;padding:6px 12px;" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Content">Mesaj:</label>
+                        <textarea cols="40" rows="5" name="Content" id="Content" class="default form-control" style="width:90%;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> Ek: </label>
+                        <input type="file" id="attachmentFile" name="attachmentFile" />
+                    </div>
+                    <div class="compose-btn">
+                        <button class="btn btn-theme btn-sm" type="submit"><i class="fa fa-check"></i> Gönder </button>
+                        <a asp-controller="Messages" asp-action="Inbox" class="btn btn-sm btn-danger"><i class="fa fa-times"></i> İptal </a>
+                        @*<button class="btn btn-sm"><i class="fa fa-times"></i> Discard</button>*@
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,185 @@
+﻿@model UserProfileModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Profili";
+}
+
+@if (Model.IsReader)
+{ // Okuyucu
+    <div class="col-md-4 profile-text mt mb centered">
+        <div class="right-divider hidden-sm hidden-xs">
+            <h4>@Model.BookCount</h4>
+            <h6>Okuduğu Kitap Sayısı</h6>
+            <h4>@Model.RecordCount</h4>
+            <h6>Eklediği Kayıt Sayısı</h6>
+        </div>
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 profile-text">
+        <h3>@Model.FirstName @Model.LastName</h3>
+        <h6>Email: @Model.Email</h6>
+        <h6>Okuyucu</h6>
+        <p>@Model.About</p>
+        <br>
+        <p>
+            <a asp-controller="Messages" asp-action="ComposeMessage" asp-route-id="@Model.Id" class="btn btn-theme"><i class="fa fa-envelope"></i> Mesaj Gönder</a>
+            @if (ViewBag.IsReader == false)
+            {
+                <button type="button" class="btn btn-theme02" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-book" style="margin-right: 3px;"></i> Talep Oluştur
+                </button>
+            }
+        </p>
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 centered">
+        <div class="profile-pic">
+            <p><img src="~/uploads/@Model.PhotoUrl" class="img-circle"></p>
+            <p>
+                @*<button class="btn btn-theme"><i class="fa fa-check"></i> Takip Et</button>*@
+
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 30px;">
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table pull-left">
+                <h4><i class="fa fa-angle-right"></i> Eklediği Kayıtlar </h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th> Kitabın Adı </th>
+                        <th class="text-left">Açıklama</th>
+                        <th style="width:200px" class="text-right">Eklenme Tarihi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.BookRecords != null && Model.BookRecords.Count > 0)
+                    {
+                        foreach (var item in Model.BookRecords)
+                        {
+                            <tr>
+                                <td> @item.Book.Name </td>
+                                <td>@item.Description</td>
+                                <td class="text-right">@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center"> Hiç kayıt bulunamadı. </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @*Bootstrap Modal hazır kod*@
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Talep Oluştur</h5>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Requests" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" id="ReceiverId" name="ReceiverId" value="@Model.Id" />
+                        <div class="form-group">
+                            <label class="control-label"> Kitaplar </label>
+                            @*<select asp-for="BookRequest.BookId" class="form-control" asp-items="ViewBag.BookId"></select>*@
+                            @Html.DropDownList("BookId", ViewBag.BookId, "Kitap seçiniz", new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"> Talep Notu </label>
+                            <input type="text" id="Description" name="Description" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Oluştur" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{ // Dinleyici
+    <div class="col-md-4 profile-text mt mb centered">
+        <div class="right-divider hidden-sm hidden-xs">
+            <h4>@Model.RequestCount</h4>
+            <h6>Talep Ettiği Kitap Sayısı</h6>
+        </div>
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 profile-text">
+        <h3>@Model.FirstName @Model.LastName</h3>
+        <h6>Email: @Model.Email</h6>
+        <h6>Dinleyici</h6>
+        <p>@Model.About</p>
+        <br>
+        <p><a href="#" class="btn btn-theme"><i class="fa fa-envelope"></i> Mesaj Gönder</a></p>
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 centered">
+        <div class="profile-pic">
+            <p><img src="~/uploads/@Model.PhotoUrl" class="img-circle"></p>
+            <p>
+                @*<button class="btn btn-theme"><i class="fa fa-check"></i> Takip Et</button>*@
+
+            </p>
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 30px;">
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table pull-left">
+                <h4><i class="fa fa-angle-right"></i> Talep Ettiği Kitaplar</h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th class="text-left">Kitap Adı</th>
+                        <th class="text-left">Talep Edilen Kişi</th>
+                        <th class="text-left">Talep Notu</th>
+                        <th class="text-left">Talep Tarihi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.RequestedBooks != null && Model.RequestedBooks.Count > 0)
+                    {
+                        foreach (var item in Model.RequestedBooks)
+                        {
+                            <tr>
+                                <td>@item.Book.Name</td>
+                                <td>@item.Receiver.FirstName @item.Receiver.LastName </td>
+                                <td>@item.Description</td>
+                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center"> Hiç talep bulunamadı. </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@*/Bootstrap modal - talep oluşturdaki popup açılmasını sağlıyor/*@
+
+@section Scripts {
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        });
+    </script>
+}

@@ -1,0 +1,159 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Kaydol";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons -->
+    <link href="~/img/theme-dashio/favicon.png" rel="icon">
+    <link href="~/img/theme-dashio/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/theme-dashio/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/lib/theme-dashio/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/theme-dashio/style.css" rel="stylesheet">
+    <link href="~/css/theme-dashio/style-responsive.css" rel="stylesheet">
+
+    <!-- =======================================================
+      Template Name: Dashio
+      Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+      Author: TemplateMag.com
+      License: https://templatemag.com/license/
+    ======================================================= -->
+</head>
+
+<body>
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <div id="login-page">
+        <div class="container">
+            <form class="form-login" id="account" method="post" e
+nctype="multipart/form-data">
+                <h2 class="form-login-heading">KAYDOL</h2>
+                <div class="login-wrap">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.FirstName"></label>
+                        <input asp-for="Input.FirstName" class="form-control" />
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.LastName"></label>
+                        <input asp-for="Input.LastName" class="form-control" />
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Kullanıcı Tipi</label>
+                        <select class="form-control" asp-for="Input.Role" asp-items="ViewBag.Roles"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.ConfirmPassword"></label>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> Profil Fotoğrafı Yükleyin </label>
+                        <input type="file" id="photoFile" name="photoFile" class="form-control" accept="image/*" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.About"></label>
+                        <input asp-for="Input.About" class="form-control" />
+                        <span asp-validation-for="Input.About" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Kaydol</button>
+                    </div>
+                    <div class="form-group">
+                        @*<p>
+                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+            </p>*@
+                        <p>
+                            Zaten bir hesabınız mı var? <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Giriş Yap</a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div style="height:50px;"></div>
+    </div>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="~/lib/theme-dashio/jquery/jquery.min.js"></script>
+    <script src="~/lib/theme-dashio/bootstrap/js/bootstrap.min.js"></script>
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="~/lib/theme-dashio/jquery.backstretch.min.js"></script>
+</body>
+
+</html>
+
+@*<h1>@ViewData["Title"]</h1>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <h4>Create a new account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.FirstName"></label>
+                    <input asp-for="Input.FirstName" class="form-control" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.LastName"></label>
+                    <input asp-for="Input.LastName" class="form-control" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Kullanıcı Tipi</label>
+                    <select class="form-control" asp-for="Input.Role" asp-items="ViewBag.Roles"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.About"></label>
+                    <input asp-for="Input.About" class="form-control" />
+                    <span asp-validation-for="Input.About" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>*@
+
+@*@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }*@

@@ -1,0 +1,168 @@
+﻿@model UserProfileModel
+
+@{
+    ViewData["Title"] = "Profilim";
+}
+
+@if (Model.IsReader)
+{ // Okuyucu
+    <div class="col-md-4 profile-text mt mb centered">
+        <div class="right-divider hidden-sm hidden-xs">
+            <h4>@Model.BookCount</h4>
+            <h6>Okuduğum Kitap Sayısı</h6>
+            <h4>@Model.RecordCount</h4>
+            <h6>Eklediğim Kayıt Sayısı</h6>
+        </div>
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 profile-text">
+        <h3>@Model.FirstName @Model.LastName</h3>
+        <h6>Email: @Model.Email</h6>
+        <h6>Okuyucu</h6>
+        <p>@Model.About</p>
+        <br>
+        @*<p><button class="btn btn-theme"><i class="fa fa-envelope"></i> Send Message</button></p>*@
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 centered">
+        <div class="profile-pic">
+            <p><img src="~/uploads/@Model.PhotoUrl" class="img-circle"></p>
+            @*<p>
+                    <button class="btn btn-theme"><i class="fa fa-check"></i> Follow</button>
+                    <button class="btn btn-theme02">Add</button>
+                </p>*@
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 30px;">
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table pull-left">
+                <h4><i class="fa fa-angle-right"></i> Eklediğim Kayıtlar </h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th> Kitabın Adı </th>
+                        <th class="text-left">Açıklama</th>
+                        <th style="width:200px" class="text-right">Eklenme Tarihi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.BookRecords != null && Model.BookRecords.Count > 0)
+                    {
+                        foreach (var item in Model.BookRecords)
+                        {
+                            <tr>
+                                <td>@item.Book.Name</td>
+                                <td>@item.Description</td>
+                                <td class="text-right">@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center"> Hiç kayıt bulunamadı. </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <table class="table pull-left">
+                <h4><i class="fa fa-angle-right"></i> Benden Talep Edilen Kitaplar </h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th class="text-left">Kitap Adı</th>
+                        <th class="text-left">Talep Eden Kişi</th>
+                        <th class="text-left">Talep Notu</th>
+                        <th class="text-right">Talep Tarihi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.RequestedBooksReceived != null && Model.RequestedBooksReceived.Count > 0)
+                    {
+                        foreach (var item in Model.RequestedBooksReceived)
+                        {
+                            <tr>
+                                <td>@item.Book.Name</td>
+                                <td>@item.Requester.FirstName @item.Requester.LastName </td>
+                                <td>@item.Description</td>
+                                <td class="text-right">@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center"> Hiç talep bulunamadı. </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{ // Dinleyici
+    <div class="col-md-4 profile-text mt mb centered">
+        <div class="right-divider hidden-sm hidden-xs">
+            <h4>@Model.RequestCount</h4>
+            <h6>Talep Ettiğim Kitap Sayısı</h6>
+        </div>
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 profile-text">
+        <h3>@Model.FirstName @Model.LastName</h3>
+        <h6>Email: @Model.Email</h6>
+        <h6>Dinleyici</h6>
+        <p>@Model.About</p>
+        <br>
+        @*<p><button class="btn btn-theme"><i class="fa fa-envelope"></i> Send Message</button></p>*@
+    </div>
+    <!-- /col-md-4 -->
+    <div class="col-md-4 centered">
+        <div class="profile-pic">
+            <p><img src="~/uploads/@Model.PhotoUrl" class="img-circle"></p>
+            @*<p>
+                    <button class="btn btn-theme"><i class="fa fa-check"></i> Follow</button>
+                    <button class="btn btn-theme02">Add</button>
+                </p>*@
+        </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 30px;">
+        <div class="col-md-10 col-md-offset-1">
+            <table class="table pull-left">
+                <h4><i class="fa fa-angle-right"></i> Talep Ettiğim Kitaplar</h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th class="text-left">Kitap Adı</th>
+                        <th class="text-left">Talep Edilen Kişi</th>
+                        <th class="text-left">Talep Notu</th>
+                        <th class="text-left">Talep Tarihi</th>
+                        <th class="text-right"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.RequestedBooks != null && Model.RequestedBooks.Count > 0)
+                    {
+                        foreach (var item in Model.RequestedBooks)
+                        {
+                            <tr>
+                                <td>@item.Book.Name</td>
+                                <td>@item.Receiver.FirstName @item.Receiver.LastName </td>
+                                <td>@item.Description</td>
+                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td><a asp-controller="Requests" asp-action="DeleteRequest" asp-route-id="@item.Id" class="btn btn-danger btn-sm"><i class="fa fa-remove"></i> Talebi Sil </a></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center"> Hiç talep bulunamadı. </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

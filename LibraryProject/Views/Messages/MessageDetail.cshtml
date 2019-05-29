@@ -1,0 +1,72 @@
+﻿@model MessageDetail
+
+@{
+    ViewData["Title"] = "Mesaj Detayları";
+    Layout = "~/Views/Shared/_LayoutMessages.cshtml";
+}
+
+<div class="col-sm-9">
+    <section class="panel">
+        <header class="panel-heading wht-bg">
+            @if (Model.IsCurrentUserSender)
+            {
+                <h4 class="gen-case">
+                    Mesaj Detayları (Gönderilen Mesaj)
+                </h4>
+            }
+            else
+            {
+                <h4 class="gen-case">
+                    Mesaj Detayları (Gelen Mesaj)
+                </h4>
+            }
+        </header>
+        <div class="panel-body ">
+            <div class="mail-header row">
+                <div class="col-md-8">
+                    <h4 class="pull-left"> @Model.Message.Title </h4>
+                </div>
+                <div class="col-md-4">
+                    <div class="compose-btn pull-right">
+                        <a asp-controller="Messages" asp-action="ComposeMessage" asp-route-id="@Model.User.Id" class="btn btn-sm btn-theme"><i class="fa fa-reply"></i> Yanıtla </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mail-sender">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img src="~/uploads/@Model.User.PhotoUrl" alt="">
+                        <strong> @Model.User.FirstName @Model.User.LastName </strong> | 
+                        <span> @Model.User.Email </span>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="date"> @Model.Message.CreatedDate </p>
+                    </div>
+                </div>
+            </div>
+            <div class="view-mail">
+                <p>
+                    @Model.Message.Content
+                </p>
+            </div>
+            <div class="attachment-mail">
+                @if (!String.IsNullOrEmpty(Model.Message.AttachmentUrl))
+                {
+                    <p>
+                        <span><i class="fa fa-paperclip"></i> 1 dosya eki mevcut. </span>
+                        <a target="_blank" href="~/uploads/@Model.Message.AttachmentUrl"> İndir/Aç </a>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        <span><i class="fa fa-paperclip"></i> Mesaj eki bulunmamaktadır. </span>
+                    </p>
+                }
+            </div>
+            <div class="compose-btn pull-left">
+                <a asp-controller="Messages" asp-action="ComposeMessage" asp-route-id="@Model.User.Id" class="btn btn-sm btn-theme"><i class="fa fa-reply"></i> Yanıtla </a>
+            </div>
+        </div>
+    </section>
+</div>

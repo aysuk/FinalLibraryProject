@@ -1,0 +1,202 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicons -->
+    <link href="~/img/theme-dashio/favicon.png" rel="icon">
+    <link href="~/img/theme-dashio/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/theme-dashio/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/lib/theme-dashio/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/theme-dashio/style.css" rel="stylesheet">
+    <link href="~/css/theme-dashio/style-responsive.css" rel="stylesheet">
+
+    <!-- =======================================================
+      Template Name: Dashio
+      Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+      Author: TemplateMag.com
+      License: https://templatemag.com/license/
+    ======================================================= -->
+</head>
+
+<body>
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <div id="login-page">
+        <div class="container">
+            <form class="form-login" id="account" method="post">
+                <h2 class="form-login-heading">GİRİŞ YAP</h2>
+                <div class="login-wrap">
+                    @*<input type="text" class="form-control" placeholder="E-posta" autofocus>
+        <br>
+        <input type="password" class="form-control" placeholder="Parola">
+        <label class="checkbox">
+            <input type="checkbox" value="remember-me"> Beni Hatırla
+        </label>
+        <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> Giriş Yap</button>
+        <hr>
+        <div class="registration">
+            Henüz bir hesabınız yok mu?<br />
+            <a class="" href="#">
+                Giriş Yap
+            </a>
+        </div>*@
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Parola</label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="Input.RememberMe" />
+                                Beni Hatırla
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                    </div>
+                    <div class="form-group">
+                        @*<p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>*@
+                        <p>
+                            Henüz bir hesabınız yok mu? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Kaydol</a>
+                        </p>
+                    </div>
+                </div>
+                <!-- Modal -->
+                @*<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Forgot Password ?</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Enter your e-mail address below to reset your password.</p>
+                                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                                <button class="btn btn-theme" type="button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+                <!-- modal -->
+            </form>
+        </div>
+    </div>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="~/lib/theme-dashio/jquery/jquery.min.js"></script>
+    <script src="~/lib/theme-dashio/bootstrap/js/bootstrap.min.js"></script>
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="~/lib/theme-dashio/jquery.backstretch.min.js"></script>
+    @*<script>
+        $.backstretch("~/img/theme-dashio/login-bg.jpg", {
+      speed: 500
+    });
+    </script>*@
+</body>
+
+</html>
+
+
+@*<div class="row">
+        <div class="col-md-4">
+            <section>
+                <form id="account" method="post">
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <h4>Use another service to log in.</h4>
+                <hr />
+                @{
+                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    {
+                        <div>
+                            <p>
+                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                for details on setting up this ASP.NET application to support logging in via external services.
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                            <div>
+                                <p>
+                                    @foreach (var provider in Model.ExternalLogins)
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }
+                }
+            </section>
+        </div>
+    </div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

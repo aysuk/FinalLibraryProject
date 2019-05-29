@@ -1,0 +1,40 @@
+﻿@model List<Message>
+@{
+    ViewData["Title"] = "Gönderidiğim Mesajlar";
+    Layout = "~/Views/Shared/_LayoutMessages.cshtml";
+}
+
+<div class="col-sm-9">
+    <section class="panel">
+        <header class="panel-heading wht-bg">
+            <h4 class="gen-case">
+                Gönderilen Mesajlar
+            </h4>
+        </header>
+        <div class="panel-body minimal">
+            <div class="table-inbox-wrap ">
+                <table class="table table-inbox table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 200px;">Kime</th>
+                            <th style="width: 400px;">Başlık</th>
+                            <th class="text-right">Gönderilme Tarihi</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var message in Model)
+                        {
+                        <tr class="">
+                            <td style="width: 200px;" class="view-message dont-show">@message.Receiver.FirstName @message.Receiver.LastName</td>
+                            <td style="width: 400px;" class="view-message view-message">@message.Title</td>
+                            <td class="view-message text-right">@message.CreatedDate</td>
+                            <td><a asp-controller="Messages" asp-action="MessageDetail" asp-route-id="@message.Id" class="btn btn-primary btn-xs" style="color: #fff;">Detaylar </a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

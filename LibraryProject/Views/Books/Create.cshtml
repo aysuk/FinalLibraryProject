@@ -1,0 +1,82 @@
+﻿@model LibraryProject.Models.Book
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-md-6" style="margin-left: 20px;">
+        <h4>Yeni Kitap Ekle</h4>
+        <hr />
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishDate" class="control-label"></label>
+                <input asp-for="PublishDate" class="form-control" />
+                <span asp-validation-for="PublishDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publisher" class="control-label"></label>
+                <input asp-for="Publisher" class="form-control" />
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kitap Ekle" class="btn btn-theme" />
+            </div>
+        </form>
+        <a asp-action="Index">Listeye Dön</a>
+    </div>
+</div>
+
+@*<h1>Create</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6" style="margin-left: 20px;">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Author" class="control-label"></label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PublishDate" class="control-label"></label>
+                <input asp-for="PublishDate" class="form-control" />
+                <span asp-validation-for="PublishDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publisher" class="control-label"></label>
+                <input asp-for="Publisher" class="form-control" />
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,32 @@
+﻿@model LibraryProject.Models.BookRecord
+
+@{
+    ViewData["Title"] = "Kitap Kaydı Ekle";
+}
+
+<div class="row">
+    <div class="col-md-6" style="margin-left: 20px;">
+        <h4>Kitap Adı: @ViewBag.BookName</h4>
+        <hr />
+        <form asp-action="AddBookRecord" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BookId" value="@ViewBag.BookId" />
+            <div class="form-group">
+                @Html.DisplayNameFor(m => m.Description)
+                @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Kayıt Dosyasını Yükleyiniz (mp3) </label>
+                <input type="file" id="FileUrl" name="recordFile" class="form-control" accept=".mp3" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Kayıt Ekle" class="btn btn-theme" />
+            </div>
+        </form>
+        <a asp-action="Index">Listeye Dön</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
